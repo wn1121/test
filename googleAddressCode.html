@@ -12,7 +12,7 @@
         .input{
             /*width: 200px;*/
             height: 30px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         .input input[type='text']{
             width: 200px;
@@ -45,7 +45,10 @@
             var address = document.getElementById('address').value;
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status == 'OK') {
-                    console.log('纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng())
+//                    console.log('纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng())
+                    var div = document.createElement("p");
+                    div.innerHTML = '<p>纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng()+'</p>';
+                    document.body.appendChild(div);
                     map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
                         map: map,
