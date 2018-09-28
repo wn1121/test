@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html，body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .input{
+            /*width: 200px;*/
+            height: 30px;
+            margin-top: 20px;
+        }
+        .input input[type='text']{
+            width: 200px;
+            height: 100%;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body onload="initialize()">
+    <div id="map" style="width: 500px; height: 500px;"></div>
+    <div class="input">
+        <input id="address" type="text" value="Sydney, NSW">
+        <input type="button" value="Encode" onclick="codeAddress()">
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDPiBYVsjzFyMeOfq78OugjuRsySKekf0"></script>
+    <script>
+        var geocoder;
+        var map;
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(-34.397, 150.644);
+            var mapOptions = {
+                zoom: 8,
+                center: latlng
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        }
+
+        function codeAddress() {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status == 'OK') {
+                    console.log('纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng())
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
