@@ -22,43 +22,43 @@
     </style>
 </head>
 <body onload="initialize()">
-    <div id="map" style="width: 500px; height: 500px;"></div>
-    <div class="input">
-        <input id="address" type="text" value="Sydney, NSW">
-        <input type="button" value="Encode" onclick="codeAddress()">
-    </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDPiBYVsjzFyMeOfq78OugjuRsySKekf0"></script>
-    <script>
-        var geocoder;
-        var map;
-        function initialize() {
-            geocoder = new google.maps.Geocoder();
-            var latlng = new google.maps.LatLng(-34.397, 150.644);
-            var mapOptions = {
-                zoom: 8,
-                center: latlng
-            }
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+<div id="map" style="width: 500px; height: 500px;"></div>
+<div class="input">
+    <input id="address" type="text" value="Sydney, NSW">
+    <input type="button" value="Encode" onclick="codeAddress()">
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi5t38ClSfYnuQIUb5VmGOQiz4u_GAIks"></script>
+<script>
+    var geocoder;
+    var map;
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var mapOptions = {
+            zoom: 8,
+            center: latlng
         }
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }
 
-        function codeAddress() {
-            var address = document.getElementById('address').value;
-            geocoder.geocode({'address': address}, function(results, status) {
-                if (status == 'OK') {
+    function codeAddress() {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status == 'OK') {
 //                    console.log('纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng())
-                    var div = document.createElement("p");
-                    div.innerHTML = '<p>纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng()+'</p>';
-                    document.body.appendChild(div);
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }
-    </script>
+                var div = document.createElement("p");
+                div.innerHTML = '<p>纬度：'+results[0].geometry.location.lat()+',经度：'+results[0].geometry.location.lng()+'</p>';
+                document.body.appendChild(div);
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+</script>
 </body>
 </html>
